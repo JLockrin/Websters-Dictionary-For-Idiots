@@ -37,7 +37,7 @@
   .pill{ font-weight:800; font-size:12px; padding:6px 10px; border-radius:999px;
          background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:white; text-transform:uppercase; letter-spacing:.8px; }
   h1{ font-size: clamp(22px, 3.6vw, 36px); line-height:1.15; margin:0; font-weight:900;
-      background: linear-gradient(90deg, #fff, #bfc9ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+      background: linear-gradient(90deg, #fff, #bfc9ff); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .sub{ color:var(--muted); margin:6px 0 14px 0; font-size:14px; }
   .cta-row{ display:flex; gap:12px; align-items:center; margin: 8px 0 18px; flex-wrap:wrap; }
   .btn-cta{
@@ -70,12 +70,14 @@
     box-shadow:0 10px 25px rgba(0,0,0,0.35);
     backdrop-filter: blur(6px);
   }
-  table{ border-collapse:collapse; width:100%; min-width:960px; }
+  .table-container{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  table{ border-collapse:collapse; width:100%; min-width:600px; }
   thead th{
     position:sticky; top:0; z-index:2;
     background:linear-gradient(180deg, rgba(124,156,255,0.22), rgba(162,107,255,0.22));
     color:#f7f9ff; text-align:left; font-weight:800; letter-spacing:.4px; padding:14px 16px;
     border-bottom:1px solid var(--line); font-size:12px; text-transform:uppercase;
+    white-space:nowrap;
   }
   tbody td{ padding:14px 16px; border-bottom:1px solid var(--line); vertical-align:top; font-size:15px; line-height:1.35; }
   tbody tr:nth-child(odd){ background: var(--row); }
@@ -90,6 +92,283 @@
          border-top:1px solid var(--line); background:rgba(255,255,255,0.03); }
   .legend{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
   .dot{width:10px;height:10px;border-radius:50%; background:var(--brand); box-shadow:0 0 0 3px rgba(124,156,255,0.25);}
+  
+  /* Mobile responsive styles */
+  @media (max-width: 768px) {
+    body { padding: 16px; }
+    .wrap { max-width: 100%; }
+    h1 { font-size: clamp(20px, 4vw, 28px); }
+    .sub { font-size: 13px; }
+    .cta-row { flex-direction: column; align-items: stretch; gap: 8px; }
+    .btn-cta, .btn-ghost { text-align: center; padding: 14px 18px; }
+    .searchbar { margin: 12px 0; }
+    .searchbar input { font-size: 16px; } /* Prevents zoom on iOS */
+    
+    /* Hide table on mobile, show card layout */
+    .table-container { display: none; }
+    .mobile-cards { display: block; }
+    
+    .mobile-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      padding: 16px;
+      transition: background 0.2s ease;
+    }
+    
+    .mobile-card:hover {
+      background: rgba(255,255,255,0.06);
+    }
+    
+    .mobile-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      gap: 12px;
+    }
+    
+    .mobile-card-title {
+      font-weight: 700;
+      color: #eaf0ff;
+      font-size: 16px;
+      line-height: 1.3;
+    }
+    
+    .mobile-card-phonetic {
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 13px;
+      margin-top: 2px;
+    }
+    
+    .mobile-card-slang {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .mobile-slang-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .mobile-slang-row:last-child {
+      border-bottom: none;
+    }
+    
+    .mobile-slang-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      min-width: 60px;
+    }
+    
+    .mobile-slang-value {
+      font-size: 15px;
+      color: #e8ecff;
+      font-weight: 500;
+      text-align: right;
+      flex: 1;
+      margin-left: 12px;
+    }
+    
+    .mobile-example {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      color: #e6edff;
+      font-size: 14px;
+      font-style: italic;
+    }
+    
+    .foot { flex-direction: column; gap: 8px; text-align: center; }
+    .legend { justify-content: center; }
+  }
+  
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .card { border-radius: 12px; }
+    
+    .mobile-card {
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    
+    .mobile-card-title {
+      font-size: 15px;
+    }
+    
+    .mobile-card-phonetic {
+      font-size: 12px;
+    }
+    
+    .mobile-slang-label {
+      font-size: 11px;
+      min-width: 50px;
+    }
+    
+    .mobile-slang-value {
+      font-size: 14px;
+    }
+    
+    .mobile-example {
+      font-size: 13px;
+    }
+  }
+  
+  /* Hide mobile cards on desktop */
+  .mobile-cards { display: none; }
+  
+  /* Modal styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .modal-overlay.show {
+    display: flex;
+    opacity: 1;
+  }
+  
+  .modal-content {
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 24px;
+    max-width: 400px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    backdrop-filter: blur(12px);
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease;
+  }
+  
+  .modal-overlay.show .modal-content {
+    transform: scale(1) translateY(0);
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #eaf0ff;
+    line-height: 1.3;
+    margin: 0;
+  }
+  
+  .modal-phonetic {
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  
+  .modal-close {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  
+  .modal-close:hover {
+    background: rgba(255,255,255,0.1);
+    color: #e8ecff;
+  }
+  
+  .modal-slang-section {
+    margin-bottom: 20px;
+  }
+  
+  .modal-slang-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  
+  .modal-slang-value {
+    font-size: 18px;
+    color: #e8ecff;
+    font-weight: 500;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    border-left: 3px solid var(--brand);
+  }
+  
+  .modal-example {
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 16px;
+    color: #e6edff;
+    font-size: 16px;
+    font-style: italic;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .modal-example q {
+    quotes: """ """ "'" "'";
+  }
+  
+  .modal-example q::before { content: open-quote; }
+  .modal-example q::after { content: close-quote; }
+  
+  /* Make mobile cards clickable */
+  .mobile-card {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .mobile-card:active {
+    transform: scale(0.98);
+  }
+  
+  .mobile-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  }
+  
   @media print{
     body{ background:white; color:black; padding:0; }
     .card{ box-shadow:none; border-color:#ddd; }
@@ -119,7 +398,8 @@
   </div>
 
   <div class="card">
-    <table aria-label="Slang crosswalk table" id="glossary">
+    <div class="table-container">
+      <table aria-label="Slang crosswalk table" id="glossary">
       <thead>
         <tr>
           <th>Normal English Word (+ Phonetic)</th>
@@ -178,7 +458,972 @@
 <tr><td><span class="k">Lying / Hypocritical</span> <span class="phon">(LY-ing)</span></td><td>two-faced / fake</td><td>shady</td><td class='example'>"He's fake fr." / "She's shady."</td></tr>
 <tr><td><span class="k">Rich / Wealthy</span> <span class="phon">(rich)</span></td><td>bougie</td><td>loaded</td><td class='example'>"She's bougie now." / "He's loaded."</td></tr>
       </tbody>
-    </table>
+      </table>
+    </div>
+    
+    <!-- Mobile card layout -->
+    <div class="mobile-cards" id="mobile-glossary">
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Good-looking</div>
+            <div class="mobile-card-phonetic">(gud-LUK-ing)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">fine / baddie</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">hot</span>
+          </div>
+        </div>
+        <div class="mobile-example">"She's fine." / "She's hot."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Charm / Charisma</div>
+            <div class="mobile-card-phonetic">(kuh-RIZ-muh)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">rizz</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">game / swagger</span>
+          </div>
+        </div>
+        <div class="mobile-example">"He's got rizz." / "He's got game."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Agree / Yes</div>
+            <div class="mobile-card-phonetic">(uh-GREE)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">bet</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">word</span>
+          </div>
+        </div>
+        <div class="mobile-example">"Pizza tonight?" → "Bet." / "Word."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Lie / Falsehood</div>
+            <div class="mobile-card-phonetic">(lye)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">cap</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">bogus</span>
+          </div>
+        </div>
+        <div class="mobile-example">"That's cap." / "That's bogus."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Suspicious</div>
+            <div class="mobile-card-phonetic">(suh-SPISH-us)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">sus</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">shady</span>
+          </div>
+        </div>
+        <div class="mobile-example">"He's sus." / "That deal's shady."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Stylish</div>
+            <div class="mobile-card-phonetic">(STY-lish)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">drip</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">bling-bling</span>
+          </div>
+        </div>
+        <div class="mobile-example">"Nice drip." / "Serious bling-bling."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Weird / Strange</div>
+            <div class="mobile-card-phonetic">(weerd)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">Ohio</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">whack</span>
+          </div>
+        </div>
+        <div class="mobile-example">"That's so Ohio." / "That's whack."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Defeated / Finished</div>
+            <div class="mobile-card-phonetic">(dee-FEE-tid)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">cooked</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">toast</span>
+          </div>
+        </div>
+        <div class="mobile-example">"You're cooked." / "I'm toast."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Excellent / Great</div>
+            <div class="mobile-card-phonetic">(EK-suh-lent)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">W</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">da bomb</span>
+          </div>
+        </div>
+        <div class="mobile-example">"That play was a W." / "That car is da bomb."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Average / Mediocre</div>
+            <div class="mobile-card-phonetic">(MEE-dee-oh-ker)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">mid</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">meh</span>
+          </div>
+        </div>
+        <div class="mobile-example">"Movie was mid." / "Kinda meh."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Unoriginal Person</div>
+            <div class="mobile-card-phonetic">(uhn-uh-RIJ-uh-nul)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">NPC</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">poser</span>
+          </div>
+        </div>
+        <div class="mobile-example">"He's an NPC." / "Total poser."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Throw</div>
+            <div class="mobile-card-phonetic">(throh)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">yeet</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">chuck</span>
+          </div>
+        </div>
+        <div class="mobile-example">"He yeeted the ball." / "He chucked it."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Exclamation of Triumph</div>
+            <div class="mobile-card-phonetic">(try-UMF)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">let's go! / W!</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">boo-yah!</span>
+          </div>
+        </div>
+        <div class="mobile-example">"We won—let's go!" / "We won—boo-yah!"</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Performed Exceptionally</div>
+            <div class="mobile-card-phonetic">(ek-SEP-shuh-nul)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">ate / left no crumbs</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">crushed it</span>
+          </div>
+        </div>
+        <div class="mobile-example">"She ate that solo." / "She crushed it."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Serious / Honest</div>
+            <div class="mobile-card-phonetic">(SEER-ee-us)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">fr fr / no cap</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">for real</span>
+          </div>
+        </div>
+        <div class="mobile-example">"It's tough, fr fr." / "For real tough."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Delicious</div>
+            <div class="mobile-card-phonetic">(duh-LISH-us)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">bussin'</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">tasty</span>
+          </div>
+        </div>
+        <div class="mobile-example">"This is bussin'." / "Super tasty."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Conveys a Vibe</div>
+            <div class="mobile-card-phonetic">(vyb)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">it's giving X</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">gives off X / has that vibe</span>
+          </div>
+        </div>
+        <div class="mobile-example">"It's giving retro." / "It gives off retro vibes."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Reality Check / Calm Down</div>
+            <div class="mobile-card-phonetic">(ree-AL-i-tee chek)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">touch grass</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">chill out</span>
+          </div>
+        </div>
+        <div class="mobile-example">"Dude, touch grass." / "Bro, chill out."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Respect / Credit</div>
+            <div class="mobile-card-phonetic">(ri-SPEKT)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">W (as credit)</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">props</span>
+          </div>
+        </div>
+        <div class="mobile-example">"Give her a W for that." / "Give her props."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Goodbye</div>
+            <div class="mobile-card-phonetic">(gud-BYE)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">I'm out / peace</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">peace out</span>
+          </div>
+        </div>
+        <div class="mobile-example">"Later—I'm out." / "Peace out."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Impressive / Cool</div>
+            <div class="mobile-card-phonetic">(im-PRES-iv)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">fire</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">sick</span>
+          </div>
+        </div>
+        <div class="mobile-example">"That track is fire." / "That ride is sick."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Dismissive / Don't Care</div>
+            <div class="mobile-card-phonetic">(dis-MIS-iv)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">bruh</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">whatever</span>
+          </div>
+        </div>
+        <div class="mobile-example">"Bruh, stop." / "Whatever."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Ridiculous / Absurd</div>
+            <div class="mobile-card-phonetic">(ri-DIK-yuh-lus)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">skibidi</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">cray-cray</span>
+          </div>
+        </div>
+        <div class="mobile-example">"That clip is skibidi." / "She went cray-cray."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Petty Theft (from friends)</div>
+            <div class="mobile-card-phonetic">(PEH-tee theft)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">Fanum Tax</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">mooch</span>
+          </div>
+        </div>
+        <div class="mobile-example">"He took my fries—Fanum Tax." / "Stop being a mooch."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Confident / Independent</div>
+            <div class="mobile-card-phonetic">(KON-fi-duhnt)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">sigma</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">boss</span>
+          </div>
+        </div>
+        <div class="mobile-example">"He's on sigma mode." / "She's a boss."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Awkward / Embarrassing</div>
+            <div class="mobile-card-phonetic">(AWK-wurd)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">cringe</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">awk</span>
+          </div>
+        </div>
+        <div class="mobile-example">"That was cringe." / "So awk."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Stuck in My Head</div>
+            <div class="mobile-card-phonetic">(stuhkt in my hed)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">brainrot</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">earworm</span>
+          </div>
+        </div>
+        <div class="mobile-example">"That meme is brainrot." / "Total earworm."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Online Pile-On / Out-voted</div>
+            <div class="mobile-card-phonetic">(OWT-voh-ted)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">ratio'd</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">owned / pwned</span>
+          </div>
+        </div>
+        <div class="mobile-example">"He got ratio'd." / "He got owned."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Great Song / Beat</div>
+            <div class="mobile-card-phonetic">(grayt sawng)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">slaps</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">banger</span>
+          </div>
+        </div>
+        <div class="mobile-example">"This track slaps." / "Absolute banger."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Improved Appearance</div>
+            <div class="mobile-card-phonetic">(im-PROOVD uh-PEER-uhns)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">glow up</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">makeover</span>
+          </div>
+        </div>
+        <div class="mobile-example">"She had a glow up." / "Total makeover."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Unapologetically True</div>
+            <div class="mobile-card-phonetic">(un-uh-PAH-luh-jet-ik-lee troo)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">based</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">real talk</span>
+          </div>
+        </div>
+        <div class="mobile-example">"That take is based." / "Real talk."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Police</div>
+            <div class="mobile-card-phonetic">(puh-LEES)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">12 / feds</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">po-po</span>
+          </div>
+        </div>
+        <div class="mobile-example">"The 12 pulled up." / "The po-po are here."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Wild Party / Hype Energy</div>
+            <div class="mobile-card-phonetic">(wyld PAHR-tee)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">lit</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">crunk</span>
+          </div>
+        </div>
+        <div class="mobile-example">"That party was lit." / "We got crunk last night."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Money / Success</div>
+            <div class="mobile-card-phonetic">(muhn-ee / suhk-SESS)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">bag / secure the bag</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">cheddar / paper</span>
+          </div>
+        </div>
+        <div class="mobile-example">"She's chasing the bag." / "Get that paper."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Cool Person / Trendsetter</div>
+            <div class="mobile-card-phonetic">(kool PUR-sun)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">goat / main character</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">baller</span>
+          </div>
+        </div>
+        <div class="mobile-example">"She's the GOAT." / "He's a baller."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Crazy / Amazing</div>
+            <div class="mobile-card-phonetic">(KRAY-zee)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">insane / wild</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">legit</span>
+          </div>
+        </div>
+        <div class="mobile-example">"That concert was insane." / "That concert was legit."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Relax / Stop Worrying</div>
+            <div class="mobile-card-phonetic">(ree-LAKS)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">chillax / take a seat</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">take a chill pill</span>
+          </div>
+        </div>
+        <div class="mobile-example">"Bro, chillax." / "Take a chill pill."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Friend / Buddy</div>
+            <div class="mobile-card-phonetic">(frend)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">bestie</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">homie</span>
+          </div>
+        </div>
+        <div class="mobile-example">"Hey bestie." / "What's up, homie?"</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Enemy / Hater</div>
+            <div class="mobile-card-phonetic">(EN-uh-mee)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">ops</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">haters</span>
+          </div>
+        </div>
+        <div class="mobile-example">"Watch out for the ops." / "Ignore the haters."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Coward / Weak</div>
+            <div class="mobile-card-phonetic">(KOW-urd)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">NPC / soft</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">punk</span>
+          </div>
+        </div>
+        <div class="mobile-example">"He's acting soft." / "Don't be a punk."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Victory / Success</div>
+            <div class="mobile-card-phonetic">(SIK-ses)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">dub</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">win</span>
+          </div>
+        </div>
+        <div class="mobile-example">"We caught a dub." / "We got the win."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Rumor / Gossip</div>
+            <div class="mobile-card-phonetic">(roo-mur)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">tea</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">drama</span>
+          </div>
+        </div>
+        <div class="mobile-example">"Spill the tea." / "So much drama."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Jealous / Envious</div>
+            <div class="mobile-card-phonetic">(JEL-us)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">salty</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">jelly</span>
+          </div>
+        </div>
+        <div class="mobile-example">"He's salty about it." / "She's jelly."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Amazing / Awesome</div>
+            <div class="mobile-card-phonetic">(AW-sum)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">goated</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">epic</span>
+          </div>
+        </div>
+        <div class="mobile-example">"That play was goated." / "Epic win."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Disrespect</div>
+            <div class="mobile-card-phonetic">(dis-ree-SPEKT)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">lowkey shade</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">diss</span>
+          </div>
+        </div>
+        <div class="mobile-example">"She threw lowkey shade." / "He dissed me."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Dance / Party Hard</div>
+            <div class="mobile-card-phonetic">(dans / par-tee)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">hit the griddy</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">bust a move</span>
+          </div>
+        </div>
+        <div class="mobile-example">"He hit the griddy." / "She busted a move."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Lying / Hypocritical</div>
+            <div class="mobile-card-phonetic">(LY-ing)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">two-faced / fake</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">shady</span>
+          </div>
+        </div>
+        <div class="mobile-example">"He's fake fr." / "She's shady."</div>
+      </div>
+      
+      <div class="mobile-card">
+        <div class="mobile-card-header">
+          <div>
+            <div class="mobile-card-title">Rich / Wealthy</div>
+            <div class="mobile-card-phonetic">(rich)</div>
+          </div>
+        </div>
+        <div class="mobile-card-slang">
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Gen Z</span>
+            <span class="mobile-slang-value">bougie</span>
+          </div>
+          <div class="mobile-slang-row">
+            <span class="mobile-slang-label">Millennial</span>
+            <span class="mobile-slang-value">loaded</span>
+          </div>
+        </div>
+        <div class="mobile-example">"She's bougie now." / "He's loaded."</div>
+      </div>
+    </div>
+    
     <div class="foot">
       <div class="legend"><span class="dot"></span> <span>Sticky header • Zebra rows • Print‑friendly</span></div>
       <div class="legend">Type to filter. ⏎ clears the search.</div>
@@ -190,14 +1435,23 @@
   const input = document.getElementById('q');
   const tbody = document.querySelector('#glossary tbody');
   const rows = Array.from(tbody.querySelectorAll('tr'));
+  const mobileCards = document.querySelectorAll('.mobile-card');
 
   function normalize(s){ return (s||'').toLowerCase(); }
 
   function filter() {
     const q = normalize(input.value.trim());
+    
+    // Filter table rows (desktop)
     rows.forEach(tr => {
       const text = normalize(tr.innerText);
       tr.style.display = text.includes(q) ? '' : 'none';
+    });
+    
+    // Filter mobile cards
+    mobileCards.forEach(card => {
+      const text = normalize(card.innerText);
+      card.style.display = text.includes(q) ? '' : 'none';
     });
   }
 
@@ -208,6 +1462,422 @@
       filter();
     }
   });
+
+  // Modal functionality
+  const modal = document.getElementById('modal');
+  const modalTitle = document.getElementById('modal-title');
+  const modalPhonetic = document.getElementById('modal-phonetic');
+  const modalGenZ = document.getElementById('modal-genz');
+  const modalMillennial = document.getElementById('modal-millennial');
+  const modalExample = document.getElementById('modal-example');
+  const modalClose = document.getElementById('modal-close');
+
+  // Data for modal content
+  const modalData = [
+    {
+      title: "Good-looking",
+      phonetic: "(gud-LUK-ing)",
+      genz: "fine / baddie",
+      millennial: "hot",
+      example: "\"She's fine.\" / \"She's hot.\""
+    },
+    {
+      title: "Charm / Charisma",
+      phonetic: "(kuh-RIZ-muh)",
+      genz: "rizz",
+      millennial: "game / swagger",
+      example: "\"He's got rizz.\" / \"He's got game.\""
+    },
+    {
+      title: "Agree / Yes",
+      phonetic: "(uh-GREE)",
+      genz: "bet",
+      millennial: "word",
+      example: "\"Pizza tonight?\" → \"Bet.\" / \"Word.\""
+    },
+    {
+      title: "Lie / Falsehood",
+      phonetic: "(lye)",
+      genz: "cap",
+      millennial: "bogus",
+      example: "\"That's cap.\" / \"That's bogus.\""
+    },
+    {
+      title: "Suspicious",
+      phonetic: "(suh-SPISH-us)",
+      genz: "sus",
+      millennial: "shady",
+      example: "\"He's sus.\" / \"That deal's shady.\""
+    },
+    {
+      title: "Stylish",
+      phonetic: "(STY-lish)",
+      genz: "drip",
+      millennial: "bling-bling",
+      example: "\"Nice drip.\" / \"Serious bling-bling.\""
+    },
+    {
+      title: "Weird / Strange",
+      phonetic: "(weerd)",
+      genz: "Ohio",
+      millennial: "whack",
+      example: "\"That's so Ohio.\" / \"That's whack.\""
+    },
+    {
+      title: "Defeated / Finished",
+      phonetic: "(dee-FEE-tid)",
+      genz: "cooked",
+      millennial: "toast",
+      example: "\"You're cooked.\" / \"I'm toast.\""
+    },
+    {
+      title: "Excellent / Great",
+      phonetic: "(EK-suh-lent)",
+      genz: "W",
+      millennial: "da bomb",
+      example: "\"That play was a W.\" / \"That car is da bomb.\""
+    },
+    {
+      title: "Average / Mediocre",
+      phonetic: "(MEE-dee-oh-ker)",
+      genz: "mid",
+      millennial: "meh",
+      example: "\"Movie was mid.\" / \"Kinda meh.\""
+    },
+    {
+      title: "Unoriginal Person",
+      phonetic: "(uhn-uh-RIJ-uh-nul)",
+      genz: "NPC",
+      millennial: "poser",
+      example: "\"He's an NPC.\" / \"Total poser.\""
+    },
+    {
+      title: "Throw",
+      phonetic: "(throh)",
+      genz: "yeet",
+      millennial: "chuck",
+      example: "\"He yeeted the ball.\" / \"He chucked it.\""
+    },
+    {
+      title: "Exclamation of Triumph",
+      phonetic: "(try-UMF)",
+      genz: "let's go! / W!",
+      millennial: "boo-yah!",
+      example: "\"We won—let's go!\" / \"We won—boo-yah!\""
+    },
+    {
+      title: "Performed Exceptionally",
+      phonetic: "(ek-SEP-shuh-nul)",
+      genz: "ate / left no crumbs",
+      millennial: "crushed it",
+      example: "\"She ate that solo.\" / \"She crushed it.\""
+    },
+    {
+      title: "Serious / Honest",
+      phonetic: "(SEER-ee-us)",
+      genz: "fr fr / no cap",
+      millennial: "for real",
+      example: "\"It's tough, fr fr.\" / \"For real tough.\""
+    },
+    {
+      title: "Delicious",
+      phonetic: "(duh-LISH-us)",
+      genz: "bussin'",
+      millennial: "tasty",
+      example: "\"This is bussin'.\" / \"Super tasty.\""
+    },
+    {
+      title: "Conveys a Vibe",
+      phonetic: "(vyb)",
+      genz: "it's giving X",
+      millennial: "gives off X / has that vibe",
+      example: "\"It's giving retro.\" / \"It gives off retro vibes.\""
+    },
+    {
+      title: "Reality Check / Calm Down",
+      phonetic: "(ree-AL-i-tee chek)",
+      genz: "touch grass",
+      millennial: "chill out",
+      example: "\"Dude, touch grass.\" / \"Bro, chill out.\""
+    },
+    {
+      title: "Respect / Credit",
+      phonetic: "(ri-SPEKT)",
+      genz: "W (as credit)",
+      millennial: "props",
+      example: "\"Give her a W for that.\" / \"Give her props.\""
+    },
+    {
+      title: "Goodbye",
+      phonetic: "(gud-BYE)",
+      genz: "I'm out / peace",
+      millennial: "peace out",
+      example: "\"Later—I'm out.\" / \"Peace out.\""
+    },
+    {
+      title: "Impressive / Cool",
+      phonetic: "(im-PRES-iv)",
+      genz: "fire",
+      millennial: "sick",
+      example: "\"That track is fire.\" / \"That ride is sick.\""
+    },
+    {
+      title: "Dismissive / Don't Care",
+      phonetic: "(dis-MIS-iv)",
+      genz: "bruh",
+      millennial: "whatever",
+      example: "\"Bruh, stop.\" / \"Whatever.\""
+    },
+    {
+      title: "Ridiculous / Absurd",
+      phonetic: "(ri-DIK-yuh-lus)",
+      genz: "skibidi",
+      millennial: "cray-cray",
+      example: "\"That clip is skibidi.\" / \"She went cray-cray.\""
+    },
+    {
+      title: "Petty Theft (from friends)",
+      phonetic: "(PEH-tee theft)",
+      genz: "Fanum Tax",
+      millennial: "mooch",
+      example: "\"He took my fries—Fanum Tax.\" / \"Stop being a mooch.\""
+    },
+    {
+      title: "Confident / Independent",
+      phonetic: "(KON-fi-duhnt)",
+      genz: "sigma",
+      millennial: "boss",
+      example: "\"He's on sigma mode.\" / \"She's a boss.\""
+    },
+    {
+      title: "Awkward / Embarrassing",
+      phonetic: "(AWK-wurd)",
+      genz: "cringe",
+      millennial: "awk",
+      example: "\"That was cringe.\" / \"So awk.\""
+    },
+    {
+      title: "Stuck in My Head",
+      phonetic: "(stuhkt in my hed)",
+      genz: "brainrot",
+      millennial: "earworm",
+      example: "\"That meme is brainrot.\" / \"Total earworm.\""
+    },
+    {
+      title: "Online Pile-On / Out-voted",
+      phonetic: "(OWT-voh-ted)",
+      genz: "ratio'd",
+      millennial: "owned / pwned",
+      example: "\"He got ratio'd.\" / \"He got owned.\""
+    },
+    {
+      title: "Great Song / Beat",
+      phonetic: "(grayt sawng)",
+      genz: "slaps",
+      millennial: "banger",
+      example: "\"This track slaps.\" / \"Absolute banger.\""
+    },
+    {
+      title: "Improved Appearance",
+      phonetic: "(im-PROOVD uh-PEER-uhns)",
+      genz: "glow up",
+      millennial: "makeover",
+      example: "\"She had a glow up.\" / \"Total makeover.\""
+    },
+    {
+      title: "Unapologetically True",
+      phonetic: "(un-uh-PAH-luh-jet-ik-lee troo)",
+      genz: "based",
+      millennial: "real talk",
+      example: "\"That take is based.\" / \"Real talk.\""
+    },
+    {
+      title: "Police",
+      phonetic: "(puh-LEES)",
+      genz: "12 / feds",
+      millennial: "po-po",
+      example: "\"The 12 pulled up.\" / \"The po-po are here.\""
+    },
+    {
+      title: "Wild Party / Hype Energy",
+      phonetic: "(wyld PAHR-tee)",
+      genz: "lit",
+      millennial: "crunk",
+      example: "\"That party was lit.\" / \"We got crunk last night.\""
+    },
+    {
+      title: "Money / Success",
+      phonetic: "(muhn-ee / suhk-SESS)",
+      genz: "bag / secure the bag",
+      millennial: "cheddar / paper",
+      example: "\"She's chasing the bag.\" / \"Get that paper.\""
+    },
+    {
+      title: "Cool Person / Trendsetter",
+      phonetic: "(kool PUR-sun)",
+      genz: "goat / main character",
+      millennial: "baller",
+      example: "\"She's the GOAT.\" / \"He's a baller.\""
+    },
+    {
+      title: "Crazy / Amazing",
+      phonetic: "(KRAY-zee)",
+      genz: "insane / wild",
+      millennial: "legit",
+      example: "\"That concert was insane.\" / \"That concert was legit.\""
+    },
+    {
+      title: "Relax / Stop Worrying",
+      phonetic: "(ree-LAKS)",
+      genz: "chillax / take a seat",
+      millennial: "take a chill pill",
+      example: "\"Bro, chillax.\" / \"Take a chill pill.\""
+    },
+    {
+      title: "Friend / Buddy",
+      phonetic: "(frend)",
+      genz: "bestie",
+      millennial: "homie",
+      example: "\"Hey bestie.\" / \"What's up, homie?\""
+    },
+    {
+      title: "Enemy / Hater",
+      phonetic: "(EN-uh-mee)",
+      genz: "ops",
+      millennial: "haters",
+      example: "\"Watch out for the ops.\" / \"Ignore the haters.\""
+    },
+    {
+      title: "Coward / Weak",
+      phonetic: "(KOW-urd)",
+      genz: "NPC / soft",
+      millennial: "punk",
+      example: "\"He's acting soft.\" / \"Don't be a punk.\""
+    },
+    {
+      title: "Victory / Success",
+      phonetic: "(SIK-ses)",
+      genz: "dub",
+      millennial: "win",
+      example: "\"We caught a dub.\" / \"We got the win.\""
+    },
+    {
+      title: "Rumor / Gossip",
+      phonetic: "(roo-mur)",
+      genz: "tea",
+      millennial: "drama",
+      example: "\"Spill the tea.\" / \"So much drama.\""
+    },
+    {
+      title: "Jealous / Envious",
+      phonetic: "(JEL-us)",
+      genz: "salty",
+      millennial: "jelly",
+      example: "\"He's salty about it.\" / \"She's jelly.\""
+    },
+    {
+      title: "Amazing / Awesome",
+      phonetic: "(AW-sum)",
+      genz: "goated",
+      millennial: "epic",
+      example: "\"That play was goated.\" / \"Epic win.\""
+    },
+    {
+      title: "Disrespect",
+      phonetic: "(dis-ree-SPEKT)",
+      genz: "lowkey shade",
+      millennial: "diss",
+      example: "\"She threw lowkey shade.\" / \"He dissed me.\""
+    },
+    {
+      title: "Dance / Party Hard",
+      phonetic: "(dans / par-tee)",
+      genz: "hit the griddy",
+      millennial: "bust a move",
+      example: "\"He hit the griddy.\" / \"She busted a move.\""
+    },
+    {
+      title: "Lying / Hypocritical",
+      phonetic: "(LY-ing)",
+      genz: "two-faced / fake",
+      millennial: "shady",
+      example: "\"He's fake fr.\" / \"She's shady.\""
+    },
+    {
+      title: "Rich / Wealthy",
+      phonetic: "(rich)",
+      genz: "bougie",
+      millennial: "loaded",
+      example: "\"She's bougie now.\" / \"He's loaded.\""
+    }
+  ];
+
+  function openModal(index) {
+    const data = modalData[index];
+    modalTitle.textContent = data.title;
+    modalPhonetic.textContent = data.phonetic;
+    modalGenZ.textContent = data.genz;
+    modalMillennial.textContent = data.millennial;
+    modalExample.textContent = data.example;
+    
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+
+  function closeModal() {
+    modal.classList.remove('show');
+    document.body.style.overflow = ''; // Restore scrolling
+  }
+
+  // Add click listeners to mobile cards
+  mobileCards.forEach((card, index) => {
+    card.addEventListener('click', () => {
+      openModal(index);
+    });
+  });
+
+  // Close modal when clicking close button
+  modalClose.addEventListener('click', closeModal);
+
+  // Close modal when clicking overlay
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('show')) {
+      closeModal();
+    }
+  });
 </script>
+
+<!-- Modal for mobile cards -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div>
+        <h3 class="modal-title" id="modal-title"></h3>
+        <div class="modal-phonetic" id="modal-phonetic"></div>
+      </div>
+      <button class="modal-close" id="modal-close">&times;</button>
+    </div>
+    
+    <div class="modal-slang-section">
+      <div class="modal-slang-title">Gen Z Slang</div>
+      <div class="modal-slang-value" id="modal-genz"></div>
+    </div>
+    
+    <div class="modal-slang-section">
+      <div class="modal-slang-title">Millennial Slang</div>
+      <div class="modal-slang-value" id="modal-millennial"></div>
+    </div>
+    
+    <div class="modal-example" id="modal-example"></div>
+  </div>
+</div>
+
 </body>
 </html>
