@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Webster's Dictionary for Idiots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0f1223;
+    --bg-soft:#14183a;
+    --card:#0f142d;
+    --ink:#e8ecff;
+    --muted:#a3b0e0;
+    --brand:#7c9cff;
+    --brand-2:#a26bff;
+    --line: rgba(255,255,255,0.10);
+    --row: rgba(124,156,255,0.07);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at -10% -10%, rgba(162,107,255,0.25), transparent 60%),
+      radial-gradient(1000px 500px at 110% 10%, rgba(124,156,255,0.25), transparent 60%),
+      linear-gradient(180deg, var(--bg) 0%, #090c1a 100%);
+    background-attachment: fixed, fixed, fixed;
+    color:var(--ink);
+    font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+    padding:32px;
+  }
+  .wrap{ max-width:1100px; margin:0 auto; }
+  .title{ display:flex;align-items:center;gap:12px; margin:0 0 8px 0; letter-spacing:0.3px; }
+  .pill{ font-weight:800; font-size:12px; padding:6px 10px; border-radius:999px;
+         background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:white; text-transform:uppercase; letter-spacing:.8px; }
+  h1{ font-size: clamp(22px, 3.6vw, 36px); line-height:1.15; margin:0; font-weight:900;
+      background: linear-gradient(90deg, #fff, #bfc9ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .sub{ color:var(--muted); margin:6px 0 14px 0; font-size:14px; }
+  .cta-row{ display:flex; gap:12px; align-items:center; margin: 8px 0 18px; flex-wrap:wrap; }
+  .btn-cta{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    padding:12px 18px; border-radius:999px; text-decoration:none; font-weight:800; letter-spacing:.4px;
+    background:linear-gradient(90deg, var(--brand), var(--brand-2));
+    color:white; box-shadow:0 8px 22px rgba(124,156,255,0.3);
+    border:1px solid rgba(255,255,255,0.15);
+    transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn-cta:hover{ transform: translateY(-1px); box-shadow:0 10px 26px rgba(162,107,255,0.35); }
+  .btn-ghost{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:12px 16px; border-radius:999px; text-decoration:none; font-weight:700;
+    color:#e8ecff; border:1px solid var(--line); background: rgba(255,255,255,0.05);
+  }
+  .searchbar{
+    display:flex; gap:10px; align-items:center; margin: 18px 0;
+    background: rgba(255,255,255,0.06); border:1px solid var(--line); border-radius:12px; padding:10px 12px;
+  }
+  .searchbar input{
+    all:unset; flex:1; font-size:14px; color:#eef2ff;
+  }
+  .searchbar .hint{ color:var(--muted); font-size:12px; }
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border:1px solid var(--line);
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.35);
+    backdrop-filter: blur(6px);
+  }
+  table{ border-collapse:collapse; width:100%; min-width:960px; }
+  thead th{
+    position:sticky; top:0; z-index:2;
+    background:linear-gradient(180deg, rgba(124,156,255,0.22), rgba(162,107,255,0.22));
+    color:#f7f9ff; text-align:left; font-weight:800; letter-spacing:.4px; padding:14px 16px;
+    border-bottom:1px solid var(--line); font-size:12px; text-transform:uppercase;
+  }
+  tbody td{ padding:14px 16px; border-bottom:1px solid var(--line); vertical-align:top; font-size:15px; line-height:1.35; }
+  tbody tr:nth-child(odd){ background: var(--row); }
+  tbody tr:hover{ background:rgba(255,255,255,0.06); }
+  .k{font-weight:700;color:#eaf0ff}
+  .phon{color:var(--muted); font-weight:500}
+  .example{ color:#e6edff; }
+  .example q{ quotes: """ """ "'" "'"; }
+  .example q::before { content: open-quote; }
+  .example q::after { content: close-quote; }
+  .foot{ display:flex;justify-content:space-between;align-items:center; padding:12px 16px;color:var(--muted);font-size:12px;
+         border-top:1px solid var(--line); background:rgba(255,255,255,0.03); }
+  .legend{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .dot{width:10px;height:10px;border-radius:50%; background:var(--brand); box-shadow:0 0 0 3px rgba(124,156,255,0.25);}
+  @media print{
+    body{ background:white; color:black; padding:0; }
+    .card{ box-shadow:none; border-color:#ddd; }
+    thead th{ background:#efefef !important; color:#111 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    tbody tr:nth-child(odd){ background:#fafafa !important; }
+    .pill{ background:#333 !important; color:#fff !important; }
+    .btn-cta, .btn-ghost{ color:#111 !important; background:#eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="title">
+    <span class="pill">Glossary</span>
+    <h1>Webster's Dictionary for Idiots</h1>
+  </div>
+  <p class="sub">A bilingual phrasebook for boomers raising zoomers—normal English → Gen&nbsp;Z ↔ Millennial, with phonetics, receipts, and roast‑proof examples.</p>
+
+  <div class="cta-row">
+    <a class="btn-cta" href="https://suno.com/s/65k1JDS8FXxLlbC9" target="_blank" rel="noopener noreferrer">▶️ Listen to "Slang Wars: Millennial vs. Gen Z"</a>
+    <a class="btn-ghost" href="#glossary">Jump to Table ↓</a>
+  </div>
+
+  <div class="searchbar">
+    <input id="q" placeholder="Search terms, slang, or examples (e.g., "po‑po", "rizz", "vibe")">
+    <span class="hint">Press ⏎ to clear</span>
+  </div>
+
+  <div class="card">
+    <table aria-label="Slang crosswalk table" id="glossary">
+      <thead>
+        <tr>
+          <th>Normal English Word (+ Phonetic)</th>
+          <th>Gen Z Slang</th>
+          <th>Millennial Slang</th>
+          <th>Example of Use</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr><td><span class="k">Good-looking</span> <span class="phon">(gud-LUK-ing)</span></td><td>fine / baddie</td><td>hot</td><td class='example'>"She's fine." / "She's hot."</td></tr>
+<tr><td><span class="k">Charm / Charisma</span> <span class="phon">(kuh-RIZ-muh)</span></td><td>rizz</td><td>game / swagger</td><td class='example'>"He's got rizz." / "He's got game."</td></tr>
+<tr><td><span class="k">Agree / Yes</span> <span class="phon">(uh-GREE)</span></td><td>bet</td><td>word</td><td class='example'>"Pizza tonight?" → "Bet." / "Word."</td></tr>
+<tr><td><span class="k">Lie / Falsehood</span> <span class="phon">(lye)</span></td><td>cap</td><td>bogus</td><td class='example'>"That's cap." / "That's bogus."</td></tr>
+<tr><td><span class="k">Suspicious</span> <span class="phon">(suh-SPISH-us)</span></td><td>sus</td><td>shady</td><td class='example'>"He's sus." / "That deal's shady."</td></tr>
+<tr><td><span class="k">Stylish</span> <span class="phon">(STY-lish)</span></td><td>drip</td><td>bling-bling</td><td class='example'>"Nice drip." / "Serious bling-bling."</td></tr>
+<tr><td><span class="k">Weird / Strange</span> <span class="phon">(weerd)</span></td><td>Ohio</td><td>whack</td><td class='example'>"That's so Ohio." / "That's whack."</td></tr>
+<tr><td><span class="k">Defeated / Finished</span> <span class="phon">(dee-FEE-tid)</span></td><td>cooked</td><td>toast</td><td class='example'>"You're cooked." / "I'm toast."</td></tr>
+<tr><td><span class="k">Excellent / Great</span> <span class="phon">(EK-suh-lent)</span></td><td>W</td><td>da bomb</td><td class='example'>"That play was a W." / "That car is da bomb."</td></tr>
+<tr><td><span class="k">Average / Mediocre</span> <span class="phon">(MEE-dee-oh-ker)</span></td><td>mid</td><td>meh</td><td class='example'>"Movie was mid." / "Kinda meh."</td></tr>
+<tr><td><span class="k">Unoriginal Person</span> <span class="phon">(uhn-uh-RIJ-uh-nul)</span></td><td>NPC</td><td>poser</td><td class='example'>"He's an NPC." / "Total poser."</td></tr>
+<tr><td><span class="k">Throw</span> <span class="phon">(throh)</span></td><td>yeet</td><td>chuck</td><td class='example'>"He yeeted the ball." / "He chucked it."</td></tr>
+<tr><td><span class="k">Exclamation of Triumph</span> <span class="phon">(try-UMF)</span></td><td>let's go! / W!</td><td>boo-yah!</td><td class='example'>"We won—let's go!" / "We won—boo-yah!"</td></tr>
+<tr><td><span class="k">Performed Exceptionally</span> <span class="phon">(ek-SEP-shuh-nul)</span></td><td>ate / left no crumbs</td><td>crushed it</td><td class='example'>"She ate that solo." / "She crushed it."</td></tr>
+<tr><td><span class="k">Serious / Honest</span> <span class="phon">(SEER-ee-us)</span></td><td>fr fr / no cap</td><td>for real</td><td class='example'>"It's tough, fr fr." / "For real tough."</td></tr>
+<tr><td><span class="k">Delicious</span> <span class="phon">(duh-LISH-us)</span></td><td>bussin'</td><td>tasty</td><td class='example'>"This is bussin'." / "Super tasty."</td></tr>
+<tr><td><span class="k">Conveys a Vibe</span> <span class="phon">(vyb)</span></td><td>it's giving X</td><td>gives off X / has that vibe</td><td class='example'>"It's giving retro." / "It gives off retro vibes."</td></tr>
+<tr><td><span class="k">Reality Check / Calm Down</span> <span class="phon">(ree-AL-i-tee chek)</span></td><td>touch grass</td><td>chill out</td><td class='example'>"Dude, touch grass." / "Bro, chill out."</td></tr>
+<tr><td><span class="k">Respect / Credit</span> <span class="phon">(ri-SPEKT)</span></td><td>W (as credit)</td><td>props</td><td class='example'>"Give her a W for that." / "Give her props."</td></tr>
+<tr><td><span class="k">Goodbye</span> <span class="phon">(gud-BYE)</span></td><td>I'm out / peace</td><td>peace out</td><td class='example'>"Later—I'm out." / "Peace out."</td></tr>
+<tr><td><span class="k">Impressive / Cool</span> <span class="phon">(im-PRES-iv)</span></td><td>fire</td><td>sick</td><td class='example'>"That track is fire." / "That ride is sick."</td></tr>
+<tr><td><span class="k">Dismissive / Don't Care</span> <span class="phon">(dis-MIS-iv)</span></td><td>bruh</td><td>whatever</td><td class='example'>"Bruh, stop." / "Whatever."</td></tr>
+<tr><td><span class="k">Ridiculous / Absurd</span> <span class="phon">(ri-DIK-yuh-lus)</span></td><td>skibidi</td><td>cray-cray</td><td class='example'>"That clip is skibidi." / "She went cray-cray."</td></tr>
+<tr><td><span class="k">Petty Theft (from friends)</span> <span class="phon">(PEH-tee theft)</span></td><td>Fanum Tax</td><td>mooch</td><td class='example'>"He took my fries—Fanum Tax." / "Stop being a mooch."</td></tr>
+<tr><td><span class="k">Confident / Independent</span> <span class="phon">(KON-fi-duhnt)</span></td><td>sigma</td><td>boss</td><td class='example'>"He's on sigma mode." / "She's a boss."</td></tr>
+<tr><td><span class="k">Awkward / Embarrassing</span> <span class="phon">(AWK-wurd)</span></td><td>cringe</td><td>awk</td><td class='example'>"That was cringe." / "So awk."</td></tr>
+<tr><td><span class="k">Stuck in My Head</span> <span class="phon">(stuhkt in my hed)</span></td><td>brainrot</td><td>earworm</td><td class='example'>"That meme is brainrot." / "Total earworm."</td></tr>
+<tr><td><span class="k">Online Pile-On / Out-voted</span> <span class="phon">(OWT-voh-ted)</span></td><td>ratio'd</td><td>owned / pwned</td><td class='example'>"He got ratio'd." / "He got owned."</td></tr>
+<tr><td><span class="k">Great Song / Beat</span> <span class="phon">(grayt sawng)</span></td><td>slaps</td><td>banger</td><td class='example'>"This track slaps." / "Absolute banger."</td></tr>
+<tr><td><span class="k">Improved Appearance</span> <span class="phon">(im-PROOVD uh-PEER-uhns)</span></td><td>glow up</td><td>makeover</td><td class='example'>"She had a glow up." / "Total makeover."</td></tr>
+<tr><td><span class="k">Unapologetically True</span> <span class="phon">(un-uh-PAH-luh-jet-ik-lee troo)</span></td><td>based</td><td>real talk</td><td class='example'>"That take is based." / "Real talk."</td></tr>
+<tr><td><span class="k">Police</span> <span class="phon">(puh-LEES)</span></td><td>12 / feds</td><td>po-po</td><td class='example'>"The 12 pulled up." / "The po-po are here."</td></tr>
+<tr><td><span class="k">Wild Party / Hype Energy</span> <span class="phon">(wyld PAHR-tee)</span></td><td>lit</td><td>crunk</td><td class='example'>"That party was lit." / "We got crunk last night."</td></tr>
+<tr><td><span class="k">Money / Success</span> <span class="phon">(muhn-ee / suhk-SESS)</span></td><td>bag / secure the bag</td><td>cheddar / paper</td><td class='example'>"She's chasing the bag." / "Get that paper."</td></tr>
+<tr><td><span class="k">Cool Person / Trendsetter</span> <span class="phon">(kool PUR-sun)</span></td><td>goat / main character</td><td>baller</td><td class='example'>"She's the GOAT." / "He's a baller."</td></tr>
+<tr><td><span class="k">Crazy / Amazing</span> <span class="phon">(KRAY-zee)</span></td><td>insane / wild</td><td>legit</td><td class='example'>"That concert was insane." / "That concert was legit."</td></tr>
+<tr><td><span class="k">Relax / Stop Worrying</span> <span class="phon">(ree-LAKS)</span></td><td>chillax / take a seat</td><td>take a chill pill</td><td class='example'>"Bro, chillax." / "Take a chill pill."</td></tr>
+<tr><td><span class="k">Friend / Buddy</span> <span class="phon">(frend)</span></td><td>bestie</td><td>homie</td><td class='example'>"Hey bestie." / "What's up, homie?"</td></tr>
+<tr><td><span class="k">Enemy / Hater</span> <span class="phon">(EN-uh-mee)</span></td><td>ops</td><td>haters</td><td class='example'>"Watch out for the ops." / "Ignore the haters."</td></tr>
+<tr><td><span class="k">Coward / Weak</span> <span class="phon">(KOW-urd)</span></td><td>NPC / soft</td><td>punk</td><td class='example'>"He's acting soft." / "Don't be a punk."</td></tr>
+<tr><td><span class="k">Victory / Success</span> <span class="phon">(SIK-ses)</span></td><td>dub</td><td>win</td><td class='example'>"We caught a dub." / "We got the win."</td></tr>
+<tr><td><span class="k">Rumor / Gossip</span> <span class="phon">(roo-mur)</span></td><td>tea</td><td>drama</td><td class='example'>"Spill the tea." / "So much drama."</td></tr>
+<tr><td><span class="k">Jealous / Envious</span> <span class="phon">(JEL-us)</span></td><td>salty</td><td>jelly</td><td class='example'>"He's salty about it." / "She's jelly."</td></tr>
+<tr><td><span class="k">Amazing / Awesome</span> <span class="phon">(AW-sum)</span></td><td>goated</td><td>epic</td><td class='example'>"That play was goated." / "Epic win."</td></tr>
+<tr><td><span class="k">Disrespect</span> <span class="phon">(dis-ree-SPEKT)</span></td><td>lowkey shade</td><td>diss</td><td class='example'>"She threw lowkey shade." / "He dissed me."</td></tr>
+<tr><td><span class="k">Dance / Party Hard</span> <span class="phon">(dans / par-tee)</span></td><td>hit the griddy</td><td>bust a move</td><td class='example'>"He hit the griddy." / "She busted a move."</td></tr>
+<tr><td><span class="k">Lying / Hypocritical</span> <span class="phon">(LY-ing)</span></td><td>two-faced / fake</td><td>shady</td><td class='example'>"He's fake fr." / "She's shady."</td></tr>
+<tr><td><span class="k">Rich / Wealthy</span> <span class="phon">(rich)</span></td><td>bougie</td><td>loaded</td><td class='example'>"She's bougie now." / "He's loaded."</td></tr>
+      </tbody>
+    </table>
+    <div class="foot">
+      <div class="legend"><span class="dot"></span> <span>Sticky header • Zebra rows • Print‑friendly</span></div>
+      <div class="legend">Type to filter. ⏎ clears the search.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const input = document.getElementById('q');
+  const tbody = document.querySelector('#glossary tbody');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+
+  function normalize(s){ return (s||'').toLowerCase(); }
+
+  function filter() {
+    const q = normalize(input.value.trim());
+    rows.forEach(tr => {
+      const text = normalize(tr.innerText);
+      tr.style.display = text.includes(q) ? '' : 'none';
+    });
+  }
+
+  input.addEventListener('input', filter);
+  input.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){
+      input.value = '';
+      filter();
+    }
+  });
+</script>
+</body>
+</html>
